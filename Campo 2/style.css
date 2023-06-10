@@ -1,0 +1,74 @@
+html, body{
+  margin: 0px;
+  padding: 0px;
+}
+
+#game-board {
+    border-collapse: collapse;
+    width: 400px;
+   margin-left:475px;
+  }
+  
+  #game-board td {
+
+    
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+  }
+  
+.titulo {
+  text-align: center;
+  color: purple;
+  font-size:50px ;
+  display: block;
+  text-align: center;
+  background-color: #333;
+  margin-top: 0px;
+  padding: 15px;
+}
+
+  .piece-cell {
+    background-color: #b58666;
+  }
+  
+  .empty-cell {
+    background-color: #f0d7b7;
+  }
+  
+  .coordinates {
+    font-size: 12px;
+    color: #333;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+
+  .highlighted-cell {
+    background-color: #5e351a;
+  }
+  
+
+.StartMessage{
+  text-align: center;
+  font-size: 30px;
+  font-family: sans-serif;
+  margin: 5px; 
+}
+
+.coordinates-row{
+  font-size: 20px;
+  background-color: gray;
+  text-align: center;
+
+}
+
+.coordinate-cell{
+  font-size: 20px;
+  background-color: gray;
+  text-align: center;
+}
+
+.body{
+  background-color:  #e9a578cc;
+}
