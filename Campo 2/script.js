@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   const gameBoard = document.getElementById('game-board');
+
   const pieces = ['&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;']; // Array representing player 1's pieces
   const pieces2 = ['&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;']; // Array representing player 2's pieces
+  
 
   let currentPlayer = 'player1';
   let selectedPiece = null;
@@ -118,11 +120,11 @@ function canMovePiece(piece, cell) {
     return false; 
   }
 
-  if (currentPlayer === 'player1' && currentRow < 6 && targetRow < currentRow) {
+  if (currentPlayer === 'player1' && currentRow === 7 && targetRow < currentRow) {
     return false; 
   }
 
-  if (currentPlayer === 'player2' && currentRow > 5 && targetRow > currentRow) {
+  if (currentPlayer === 'player2' && currentRow === 4 && targetRow > currentRow) {
     return false; 
   }
 

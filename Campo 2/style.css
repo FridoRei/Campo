@@ -5,8 +5,8 @@ html, body{
 
 #game-board {
     border-collapse: collapse;
-    width: 400px;
-   margin-left:475px;
+    width: 500px;
+   margin-left:425px;
   }
   
   #game-board td {
@@ -71,4 +71,12 @@ html, body{
 
 .body{
   background-color:  #e9a578cc;
+}
+
+.P1{
+  text-align: center;
+}
+
+.P2{
+  text-align: center;
 }
