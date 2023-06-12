@@ -4,12 +4,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const pieces = ['&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;', '&#9823;']; 
   const pieces2 = ['&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;', '&#9817;']; 
 
+  
   const kings = ['&#9818;', '&#9812;']; 
   const kingPositions = [{ row: 10, col: 6 }, { row: 1, col: 5 }]; 
 
   
   let currentPlayer = 'player1';
   let selectedPiece = null;
+  
 
   for (let i = 0; i < 10; i++) {
     const row = document.createElement('tr');
@@ -60,16 +62,19 @@ document.addEventListener('DOMContentLoaded', function() {
   message.classList.add('StartMessage');
   document.body.appendChild(message);
 
-  // Add captured kings to the board
+
   const king1Cell = gameBoard.rows[kingPositions[0].row].cells[kingPositions[0].col];
   king1Cell.innerHTML = kings[0];
   king1Cell.dataset.player = 'player1';
+  king1Cell.classList.add('King')
 
   const king2Cell = gameBoard.rows[kingPositions[1].row].cells[kingPositions[1].col];
   king2Cell.innerHTML = kings[1];
   king2Cell.dataset.player = 'player2';
+  king2Cell.classList.add('King')
 
-  function selectPiece(cell) {
+  function selectPiece(cell, piece) {
+    
     if (selectedPiece) {
       if (canMovePiece(selectedPiece, cell)) {
         movePiece(selectedPiece, cell);
@@ -90,7 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
   function movePiece(piece, cell) {
     const targetRow = cell.parentNode.rowIndex;
     const targetCol = cell.cellIndex;
-  
+ 
+
     if (
       (currentPlayer === 'player1' && targetRow === 10) ||
       (currentPlayer === 'player2' && targetRow === 1)
@@ -103,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('prisoner-container').appendChild(prisoner);
   
       piece.innerHTML = currentPlayer === 'player1' ? '&#9822;' : '&#9816;';
-      piece.classList.add('special-piece');
+      piece.classList.add('knight');
     }
   
     cell.innerHTML = piece.innerHTML;
@@ -128,31 +134,42 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     
-    if (piece.classList.contains('special-piece') && currentPlayer === 'player1' && currentRow === 7 && targetRow < currentRow) {
+    if (piece.classList.contains('knight') && currentPlayer === 'player1' && currentRow === 7 && targetRow < currentRow) {
       return false;
     }
 
-    if (piece.classList.contains('special-piece') && currentPlayer === 'player2' && currentRow === 4 && targetRow > currentRow) {
+    if (piece.classList.contains('knight') && currentPlayer === 'player2' && currentRow === 4 && targetRow > currentRow) {
       return false;
     }
 
-    if (!piece.classList.contains('special-piece') && !piece.classList.contains('King')) {
+    if (piece.classList.contains('knight')) {
       if (
-        (rowDifference === direction && Math.abs(targetCol - currentCol) === 1) ||
-        (rowDifference === -direction && Math.abs(targetCol - currentCol) === 0)
+        (rowDifference === direction && Math.abs(targetCol - currentCol) > 0 && rowDifference === direction && Math.abs(targetCol - currentCol) < 2 ) ||
+        (rowDifference === -direction && Math.abs(targetCol - currentCol) > 0 && rowDifference === -direction && Math.abs(targetCol - currentCol) < 2 )
       ) {
         return true;
       }
-    } else {
-      if (
-        (rowDifference === direction && Math.abs(targetCol - currentCol) === 1) ||
-        (rowDifference === -direction && Math.abs(targetCol - currentCol) === 1)
-      ) {
-        return true;
-      }
-    }
+    } 
 
-    return false;
+    if (piece.classList.contains('King')) {
+      if (
+        (rowDifference === direction && Math.abs(targetCol - currentCol) > 0 && rowDifference === direction && Math.abs(targetCol - currentCol) < 2 ) ||
+        (rowDifference === -direction && Math.abs(targetCol - currentCol) > 0 && rowDifference === -direction && Math.abs(targetCol - currentCol) < 2 )
+      ) {
+        return true;
+      }
+    } 
+
+    if (!piece.classList.contains('King') || !piece.classList.contains('knight')) {
+      if (
+        (rowDifference === direction && Math.abs(targetCol - currentCol) > 0 && rowDifference === direction && Math.abs(targetCol - currentCol) < 2 ) ||
+        (rowDifference === -direction && Math.abs(targetCol - currentCol) === 0 )
+      ) {
+        return true;
+      }
+    } 
+
+
   }
 
   function togglePlayer() {
